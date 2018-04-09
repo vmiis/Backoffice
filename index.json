@@ -1,0 +1,9 @@
+{
+	"api_path_development":"https://cbs.wappsystem.com/pro/",
+	"api_path_production":"https://cbs.wappsystem.com/pro/",
+	"default_production":"Yes",
+	"panels":{
+		"website":		{"url":"","modules":["website/index.json"]},
+		"backoffice":	{"url":"backoffice/panel.html","modules":["backoffice/index.json"]}
+	}
+}
