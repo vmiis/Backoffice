@@ -3,7 +3,8 @@
 	"api_path_production":"https://cbs.wappsystem.com/pro/",
 	"default_production":"Yes",
 	"panels":{
-		"website":		{"url":"","modules":["website/index.json"]},
-		"backoffice":	{"url":"backoffice/panel.html","modules":["backoffice/index.json"]}
+		"home":	    {"url":"panels/home.html","modules":[]},
+		"main":	    {"url":"panels/main.html","modules":[],"prefix":"pages"},
+		"pages":	{"url":"","modules":["pages|index.json"]}
 	}
 }
