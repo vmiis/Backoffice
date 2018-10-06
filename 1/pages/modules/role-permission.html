@@ -16,6 +16,7 @@
     function F__ID(){
         //-------------------------------------
         VmInclude:__COMPONENT__/grid/grid.v3.js
+		_json='';
         //-------------------------------------
         //_fields="_Form,Role,Users,Set_Permissions,Owner,Add,Read,Write,Delete,Lock,Full,Sub_Table";
         _fields="_Form,Role,Users,Set_Permissions,Owner,Add,Read,Write,Delete,Lock,Full";
@@ -64,7 +65,11 @@
 	                if(source=='grid'){
 	                	td.attr('contenteditable',false);
 		                if(records[I][field]!==undefined && records[I][field]!==null && records[I][field].length>0){
-		                	var N=records[I][field].split(',').length;
+							var pids=records[I][field];
+							pids=pids.replace(/\n/g,'')
+							pids=pids.replace(/\r/g,'')
+							pids=pids.replace(/,,/g,',')
+							var N=pids.split(',').length;
 		                	if(N!=0){
 			                	if(N==1) td.html('<u style="cursor:pointer">'+N.toString() + ' form</u>');
 			                	else td.html('<u style="cursor:pointer">'+N.toString() + ' forms</u>');
@@ -80,6 +85,9 @@
         //---------------------------------------------
         var show_info=function(pids){
             if(pids==="") return;
+			pids=pids.replace(/\n/g,'')
+			pids=pids.replace(/\r/g,'')
+			pids=pids.replace(/,,/g,',')
             var req={
                 cmd:'query_system_records',db_pid:"30",
                 uids:" and uid in ("+pids+")",
@@ -87,11 +95,14 @@
             $VmAPI.request({data:req,callback:function(res){
                 var txt="";
                 for(var i=0;i<res.records.length;i++){
-                    txt+=res.records[i].UID+" "+res.records[i].Name+", "+res.records[i].Group+"<br>";
+                    txt+=(i+1).toString()+" "+res.records[i].UID+" Name:"+res.records[i].Name+", Group:"+res.records[i].Group+", Sub group:"+res.records[i].Sub_Group+"\r\n";
                 }
-                $('#info__ID').html(txt);
+				/*
+				$('#info__ID').html(txt);
                 $('#module_uid_s3__ID').dialog({ height: 'auto',width:'auto',	modal: true});
                 $(".ui-dialog-titlebar").hide();
+				*/
+				$vm.view_code(txt,'Data base table infomation')
             }})
         };
         //-------------------------------------
